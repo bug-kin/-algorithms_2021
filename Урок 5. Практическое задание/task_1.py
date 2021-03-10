@@ -23,3 +23,34 @@
 
 Предприятия, с прибылью ниже среднего значения: Фирма_2
 """
+
+from collections import namedtuple, deque
+
+firm = namedtuple("Firm", ['name', 'income'])
+
+
+def statistic():
+    quantity = int(input('Введите количество предприятий для расчета прибыли: '))
+    common_sum = 0
+    avg = 0
+    f_deq = deque([])
+    firms = [reg_firm(
+        input('Введите название предприятия: '),
+        input('Через пробел введите прибыль за каждый квартал года: '))
+        for _ in range(quantity)]
+    for unit in firms:
+        common_sum += unit.income
+        avg = common_sum / len(firms)
+    for unit in firms:
+        if unit.income > avg:
+            f_deq.appendleft(unit.name)
+        else:
+            f_deq.append(unit.name)
+    return common_sum, avg
+
+
+def reg_firm(name, income):
+    return firm(name, sum(map(int, income.split())))
+
+
+print(statistic())
