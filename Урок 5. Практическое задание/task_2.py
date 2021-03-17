@@ -33,3 +33,43 @@ class HexNumber:
 hx = HexNumber
 hx + hx
 """
+
+from collections import defaultdict
+
+# num1 = input('1 число, в 16 формате: ')
+# num2 = input('2 число, в 16 формате: ')
+
+
+def var1(num1='A2', num2="C4F"):
+    defdict = defaultdict()
+    defdict[num1] = list(num1)
+    defdict[num2] = list(num2)
+    defdict['sum'] = list(hex(int(num1, 16) + int(num2, 16)))[2:]
+    defdict['mul'] = list(hex(int(num1, 16) * int(num2, 16)))[2:]
+    print(f'Пользователь ввел значения {num1} и {num2}.\n'
+          f'Значения сохранены как {defdict[num1]} и {defdict[num2]}.\n'
+          f'Сумма: {defdict["sum"]}. \nПроизведение: {defdict["mul"]}.')
+    return ''
+
+
+class HexNumber:
+    def __init__(self, number):
+        self.number = number
+
+    def __add__(self, other):
+        return f"Сложение: {list(hex(int(self.number, 16) + int(other.number, 16)))[2:]}"
+
+    def __mul__(self, other):
+        return f"Произведение: {list(hex(int(self.number, 16) * int(other.number, 16)))[2:]}"
+
+    def __str__(self):
+        return f'Введено число {self.number} и преобразовано в {list(self.number)}'
+
+
+var1()
+print('<>'*30)
+var2_num1 = HexNumber('A2')
+var2_num2 = HexNumber('C4F')
+print(var2_num1, var2_num2, sep='\n')
+print(var2_num1 + var2_num2)
+print(var2_num1 * var2_num2)
